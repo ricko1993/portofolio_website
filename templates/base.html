@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }} ">
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/style.css') }}">
+    <title>Portfolio Website</title>
+</head>
+
+<body>
+    <div class="container">
+        <ul class="nav nav-pills">
+            {% if contact %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home') }}"><strong>Home</strong></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('contact') }}"><strong>Contact</strong></a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+
+                <a class="nav-link" href="{{ url_for('home') }}"><strong>Home</strong></a>
+            </li>
+            {% endif %}
+        </ul>
+        <div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'message' %}
+                        <div class="alert alert-warning" role="alert">
+                        {% else %}
+                        <div class="alert alert-{{ category }}" role="alert">
+                        {% endif %}
+                    {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            </div>
+            {% block content %}
+
+            {% endblock content %}
+            <div id="footer">
+                <div class="container text-center">
+                    <p class="text-muted credit" style="color:#fff">&#169;2020, by Mijato </p>
+                </div>
+            </div>
+        </div>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="{{ url_for('static', filename='js/jquery-3.4.1.slim.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>
